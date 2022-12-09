@@ -1,16 +1,13 @@
-FROM golang:1.20-rc-alpine3.17
+FROM golang:latest
 
 WORKDIR /src
 
-COPY go.mod ./
-COPY go.sum ./
+RUN export GO111MODULE=on
 
-RUN go mod download
+RUN cd /src && git clone https://github.com/akash-kumar-saw/crud-api
 
-COPY *.go ./
-
-RUN go build -o /crud-api
+RUN cd /src/crud-api/ && go build
 
 EXPOSE 8080
 
-CMD ["/crud-api"]
+ENTRYPOINT ["/src/crud-api/main"]
