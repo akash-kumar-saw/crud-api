@@ -1,11 +1,10 @@
-
 pipeline {
     agent any
     tools {
-        go 'go1.14'
+        go 'go1.19'
     }
     environment {
-        GO114MODULE = 'on'
+        GO119MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
@@ -16,15 +15,13 @@ pipeline {
                 sh 'go version'
                 sh 'go get -u golang.org/x/lint/golint'
             }
-        }
-        
+        }    
         stage('Build') {
             steps {
                 echo 'Compiling and building'
                 sh 'go build'
             }
         }
-
         stage('Test') {
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
@@ -37,6 +34,5 @@ pipeline {
                 }
             }
         }
-        
     } 
 }
