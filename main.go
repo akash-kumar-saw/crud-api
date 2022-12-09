@@ -28,7 +28,7 @@ func main() {
 	router.HandleFunc("/post", addPost).Methods("POST")
 	router.HandleFunc("/post/{id}", updatePost).Methods("PUT")
 	router.HandleFunc("/post/{id}", deletePost).Methods("DELETE")
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":9000", router)
 }
 
 func getPost(w http.ResponseWriter, r *http.Request) {
