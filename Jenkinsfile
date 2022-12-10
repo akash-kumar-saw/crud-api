@@ -5,21 +5,21 @@ pipeline {
         go 'go1.19'
     }
 
-    # Setting up the Environment
+    // Setting up the Environment
     environment {
         GO119MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }
     
-    # Setting up the Triggers
+    // Setting up the Triggers
     triggers {
         pollSCM '* * * * *'
     }
 
     stages {
 
-        # Installing all Dependencies    
+        // Installing all Dependencies    
         stage('Unit Test') {
             steps {
                 echo 'Installing dependencies'
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        # Compiling and Building the Go Application and Docker Image
+        // Compiling and Building the Go Application and Docker Image
         stage('Build') {
             steps {
                 echo 'Compiling and building'
@@ -37,7 +37,7 @@ pipeline {
             }
         }
 
-        # Testing the Go Application
+        // Testing the Go Application
         stage('Functional Test') {
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
@@ -51,7 +51,7 @@ pipeline {
             }
         }
 
-        # Delivering the Docker Image to DockerHub
+        // Delivering the Docker Image to DockerHub
         stage('Deliver') {
             agent any
             steps {
