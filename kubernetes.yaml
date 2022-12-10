@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+
+# Labels of the Pod
+metadata:
+  name: crud-api
+  labels:
+    app: crud-api
+
+# Specification of the Container
+spec:
+  containers:
+  - name: crud-api
+    image: akashkumarsaw/crud-api
+    imagePullPolicy: Always
